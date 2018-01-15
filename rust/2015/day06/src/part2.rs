@@ -1,11 +1,11 @@
-use std::io::{self, BufRead};
-use types::{Coord, Instruction};
-use parser::parse;
+use crate::parser::parse;
+use crate::types::{Coord, Instruction};
 use std::cmp;
+use std::io::{self, BufRead};
 
 #[allow(dead_code)]
 pub fn run() {
-  let mut grid = Grid::new(1000, 1000);
+    let mut grid = Grid::new(1000, 1000);
 
     let stdin = io::stdin();
     for line in stdin.lock().lines().map(|l| l.unwrap()) {
@@ -19,7 +19,10 @@ pub fn run() {
         }
     }
 
-    println!("Brightness: {}", grid.values.iter().fold(0, |acc, &x| acc + x));
+    println!(
+        "Brightness: {}",
+        grid.values.iter().fold(0, |acc, &x| acc + x)
+    );
 }
 
 struct Grid {
@@ -31,7 +34,7 @@ impl Grid {
     fn new(width: u32, height: u32) -> Self {
         Grid {
             width,
-            values: vec![0; (width * height) as usize]
+            values: vec![0; (width * height) as usize],
         }
     }
 
@@ -40,9 +43,11 @@ impl Grid {
     }
 
     fn map_cell<F>(&mut self, from: &Coord, to: &Coord, cb: F)
-    where F: Fn(&Self, usize) -> i32 {
-        for x in from.x..to.x + 1 {
-            for y in from.y..to.y + 1 {
+    where
+        F: Fn(&Self, usize) -> i32,
+    {
+        for x in from.x..=to.x {
+            for y in from.y..=to.y {
                 let index = self.to_index(&Coord::new(x, y));
                 self.values[index] = cb(self, index);
             }

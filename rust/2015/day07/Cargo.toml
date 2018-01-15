@@ -1,7 +1,9 @@
 [package]
-name = "day02"
+name = "day07"
 version = "0.1.0"
 authors = ["Rajasekharan Vengalil <avranju@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+pest = "2.1"
+pest_derive = "2.1"

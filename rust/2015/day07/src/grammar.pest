@@ -1,0 +1,28 @@
+WHITESPACE = _{ " " }
+
+instruction  = _{ src ~ arrow ~ ident }
+src          = _{
+  and_expr |
+  or_expr |
+  lshift_expr |
+  rshift_expr |
+  not_expr |
+  value_expr
+}
+value_src   = _{ number | ident }
+and_expr    = { value_src ~ and ~ value_src }
+or_expr     = { value_src ~ or ~ value_src }
+lshift_expr = { value_src ~ lshift ~ value_src }
+rshift_expr = { value_src ~ rshift ~ value_src }
+not_expr    = { not ~ value_src }
+value_expr  = { number | ident }
+
+number   = @{ ASCII_DIGIT+ }
+arrow    = _{ "->" }
+ident    = @{ ASCII_ALPHA_LOWER+ }
+and      = _{ "AND" }
+or       = _{ "OR" }
+not      = _{ "NOT" }
+lshift   = _{ "LSHIFT" }
+rshift   = _{ "RSHIFT" }
+

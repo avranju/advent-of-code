@@ -12,7 +12,7 @@ impl Coord {
 
 #[derive(Debug)]
 pub enum Instruction {
-  TurnOff((Coord, Coord)),
-  TurnOn((Coord, Coord)),
-  Toggle((Coord, Coord)),
+    TurnOff((Coord, Coord)),
+    TurnOn((Coord, Coord)),
+    Toggle((Coord, Coord)),
 }

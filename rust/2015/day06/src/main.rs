@@ -2,9 +2,9 @@
 extern crate pest;
 
 mod parser;
-mod types;
 mod part1;
 mod part2;
+mod types;
 
 fn main() {
     part2::run();
