@@ -1,0 +1,16 @@
+WHITESPACE = _ { " " }
+
+char = _{
+	quote ~
+    (ident)* ~
+    quote
+}
+
+back_slash = { slash ~ slash }
+double_quote = { slash ~ quote }
+hex_num = { slash ~ ("x") ~ (('0'..'9') | ('a'..'f')){2} }
+
+slash = _{ "\\" }
+quote = _{ "\"" }
+literal = { ASCII_ALPHA_LOWER }
+ident = { literal | back_slash | double_quote | hex_num }
