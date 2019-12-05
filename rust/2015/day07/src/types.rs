@@ -44,10 +44,10 @@ impl fmt::Display for Source {
         match self {
             Source::Value(v) => write!(f, "{}", v),
             Source::And(v1, v2) => write!(f, "{} AND {}", v1, v2),
-            Source::Or(v1, v2) => write!(f, "{} AND {}", v1, v2),
-            Source::LeftShift(v1, v2) => write!(f, "{} AND {}", v1, v2),
-            Source::RightShift(v1, v2) => write!(f, "{} AND {}", v1, v2),
-            Source::Not(v) => write!(f, "{}", v),
+            Source::Or(v1, v2) => write!(f, "{} OR {}", v1, v2),
+            Source::LeftShift(v1, v2) => write!(f, "{} LSHIFT {}", v1, v2),
+            Source::RightShift(v1, v2) => write!(f, "{} RSHIFT {}", v1, v2),
+            Source::Not(v) => write!(f, "NOT {}", v),
         }
     }
 }
