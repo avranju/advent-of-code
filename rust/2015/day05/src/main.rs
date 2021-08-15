@@ -1,5 +1,5 @@
-use std::io::{self, BufRead};
 use std::collections::BTreeMap;
+use std::io::{self, BufRead};
 
 fn main() {
     let mut nice_strings = Vec::new();

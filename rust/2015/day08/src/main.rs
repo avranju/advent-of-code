@@ -22,11 +22,7 @@ fn main() {
         encode_count += encode_str(tokens.into_iter()).len();
     }
 
-    println!(
-        "{} {}",
-        raw_count - mem_count,
-        encode_count - raw_count
-    );
+    println!("{} {}", raw_count - mem_count, encode_count - raw_count);
 }
 
 fn encode_str(input: impl Iterator<Item = CharType>) -> String {
