@@ -2,22 +2,12 @@ use std::collections::BTreeMap;
 use std::io::{self, BufRead};
 
 use itertools::Itertools;
-use once_cell::sync::OnceCell;
 use regex::Regex;
 
-static RE: OnceCell<Regex> = OnceCell::new();
-
-fn re() -> &'static Regex {
-    RE.get().expect("Regex not initialized")
-}
-
 fn main() {
-    RE.set(
+    let re =
         Regex::new("([^ ]+) would (gain|lose) ([0-9]+) happiness units by sitting next to ([^.]+)")
-            .unwrap(),
-    )
-    .unwrap();
-
+            .unwrap();
     let stdin = io::stdin();
 
     // BTreeMap<String, BTreeMap<String, i32>>
@@ -29,7 +19,7 @@ fn main() {
         .map(|l| l.unwrap())
         .filter(|l| !l.is_empty())
     {
-        for cap in re().captures_iter(&line) {
+        for cap in re.captures_iter(&line) {
             let name = &cap[1];
             let mut points = i32::from_str_radix(&cap[3], 10).unwrap();
             if &cap[2] == "lose" {
