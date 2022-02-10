@@ -6,7 +6,6 @@ use regex::Regex;
 
 #[derive(Debug)]
 struct Ingredient {
-    name: String,
     capacity: i32,
     durability: i32,
     flavor: i32,
@@ -30,7 +29,6 @@ fn main() {
     {
         for cap in re.captures_iter(&line) {
             ingredients.push(Ingredient {
-                name: cap[1].to_string(),
                 capacity: i32::from_str_radix(&cap[2], 10).unwrap(),
                 durability: i32::from_str_radix(&cap[3], 10).unwrap(),
                 flavor: i32::from_str_radix(&cap[4], 10).unwrap(),
