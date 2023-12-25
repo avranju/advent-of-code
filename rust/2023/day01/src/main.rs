@@ -8,12 +8,11 @@ type Part = fn(String) -> u32;
 fn main() {
     let part: Part = env::args()
         .nth(1)
-        .map(|p| match p.as_str() {
+        .and_then(|p| match p.as_str() {
             "part1" => Some::<Part>(part1),
             "part2" => Some::<Part>(part2),
             _ => None,
         })
-        .flatten()
         .unwrap_or_else(|| {
             usage();
             std::process::exit(1);
@@ -33,29 +32,22 @@ fn main() {
 }
 
 fn part1(line: String) -> u32 {
-    let n0 = line.chars().filter(|c| c.is_digit(10)).nth(0).unwrap();
-    let n1 = line
-        .chars()
-        .rev()
-        .filter(|c| c.is_digit(10))
-        .next()
-        .unwrap();
+    let n0 = line.chars().find(|c| c.is_ascii_digit()).unwrap();
+    let n1 = line.chars().rev().find(|c| c.is_ascii_digit()).unwrap();
     format!("{n0}{n1}").parse::<u32>().unwrap()
 }
 
 fn part2(line: String) -> u32 {
     let n0 = line
         .char_indices()
-        .map(|(i, c)| c.to_digit(10).or_else(|| parse_num(&line[0..=i])))
-        .flatten()
-        .nth(0)
+        .filter_map(|(i, c)| c.to_digit(10).or_else(|| parse_num(&line[0..=i])))
+        .next()
         .unwrap();
     let n1 = line
         .char_indices()
         .rev()
-        .map(|(i, c)| c.to_digit(10).or_else(|| parse_num(&line[i..])))
-        .flatten()
-        .nth(0)
+        .filter_map(|(i, c)| c.to_digit(10).or_else(|| parse_num(&line[i..])))
+        .next()
         .unwrap();
 
     format!("{n0}{n1}").parse::<u32>().unwrap()
